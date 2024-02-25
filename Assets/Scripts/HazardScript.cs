@@ -5,7 +5,7 @@ using UnityEngine;
 public class HazardScript : MonoBehaviour
 {
     public AudioSource deathSound;
-    public float minFallingSpeed = -10f;
+    public float minFallingSpeed = -10f; 
     public float maxFallingSpeed = -5f;
     private float fallingSpeed;
     private Rigidbody2D rb;
@@ -14,6 +14,14 @@ public class HazardScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         fallingSpeed = Random.Range(minFallingSpeed, maxFallingSpeed);
+    }
+
+    void Awake()
+    {
+        if (deathSound == null)
+        {
+            deathSound = GetComponent<AudioSource>();
+        }
     }
 
     void FixedUpdate()

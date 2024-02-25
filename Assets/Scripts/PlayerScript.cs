@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource introSound;
+    public AudioSource backgroundMusic;
     public float speed = 5f;
     private float movement;
     private Rigidbody2D rb;
@@ -11,6 +13,9 @@ public class PlayerScript : MonoBehaviour
 
     private void Start()
     {
+        introSound.Play();
+        StartCoroutine(PlayBackgroundMusic(3f));
+
         rb = GetComponent<Rigidbody2D>();
         localScale = transform.localScale;
     }
@@ -50,22 +55,30 @@ public class PlayerScript : MonoBehaviour
             transform.localScale = new Vector3(-Mathf.Abs(localScale.x), localScale.y, localScale.z);
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Hazard"))
-        {
-            Destroy(gameObject);
-        }
-        else if(collision.gameObject.CompareTag("Collectable"))
-        {
-            collectSound.Play();
-            // score++
-        }
-        else if (collision.gameObject.CompareTag("ThemeChange"))
-        {
-            // Change theme...
-        }
 
+    IEnumerator PlayBackgroundMusic(float delay)
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
+
+        // Play the background music if it's available
+        if (backgroundMusic != null)
+        {
+            backgroundMusic.Play();
+        }
+        else
+        {
+            Debug.LogError("Background music AudioSource missing...");
+        }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Hazard"))
+        {
+            introSound.Play();
+            backgroundMusic.Stop();
+            Destroy(gameObject);
+        }
+    }
 }

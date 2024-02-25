@@ -16,6 +16,14 @@ public class CollectableScript : MonoBehaviour
         fallingSpeed = Random.Range(minFallingSpeed, maxFallingSpeed);
     }
 
+    void Awake()
+    {
+        if (collectSound == null)
+        {
+            collectSound = GetComponent<AudioSource>();
+        }
+    }
+
     void FixedUpdate()
     {
         rb.velocity = new Vector2(0, fallingSpeed);
@@ -26,6 +34,12 @@ public class CollectableScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             collectSound.Play();
+            var renderer = GetComponent<Renderer>();
+
+            if (renderer != null)
+            {
+                renderer.enabled = false;
+            }
             Destroy(gameObject, collectSound.clip.length);
         }
     }

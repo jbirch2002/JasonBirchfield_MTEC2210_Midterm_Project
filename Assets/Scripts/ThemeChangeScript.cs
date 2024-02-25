@@ -25,7 +25,9 @@ public class ThemeChangeScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            //themeBoxCollectSound.Play();
             Debug.Log("Theme Box collected...");
+            Destroy(gameObject);
         }
     }
 }

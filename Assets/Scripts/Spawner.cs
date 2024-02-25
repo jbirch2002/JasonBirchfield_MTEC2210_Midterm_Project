@@ -6,39 +6,47 @@ public class Spawner : MonoBehaviour
 {
     public GameObject[] collectablePrefabs;
     public GameObject[] hazardPrefabs;
-    public float minSpawnInterval = 3f;
-    public float maxSpawnInterval = 12f;
+    public GameObject[] themeBoxPrefabs;
+    public float minSpawnInterval = 0.25f;
+    public float maxSpawnInterval = 1.25f;
     private float spawnInterval;
     private float timer = 0f;
-    private float screenWidth = 10f;
-    private float spawnHeight = 10f;
+    private float screenWidth;
+    private float spawnHeight;
 
     void Start()
     {
+        ScreenBounds();
+        StartCoroutine(StartSpawningAfterDelay(3f));
+    }
+
+    IEnumerator StartSpawningAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
     }
 
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        if (spawnInterval > 0)
         {
-            SpawnRandomObject();
-            timer = 0;
-            spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
+            timer += Time.deltaTime;
+            if (timer >= spawnInterval)
+            {
+                SpawnRandomObject();
+                timer = 0;
+                spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
+            }
         }
     }
 
     void SpawnRandomObject()
     {
-        if (Random.value < 0.5f)
-        {
-            SpawnCollectable();
-        }
-        else
-        {
-            SpawnHazard();
-        }
+        float rand = Random.value;
+
+        if (rand < 0.33f) SpawnCollectable();
+        else if (rand < 0.66f) SpawnHazard();
+        else SpawnThemeBox();
     }
 
     void SpawnCollectable()
@@ -59,9 +67,26 @@ public class Spawner : MonoBehaviour
         Instantiate(hazardPrefabs[index], spawnPosition, Quaternion.identity);
     }
 
+    void SpawnThemeBox()
+    {
+        if (themeBoxPrefabs.Length == 0) return;
+
+        int index = Random.Range(0, themeBoxPrefabs.Length);
+        Vector2 spawnPosition = GetSpawnPosition();
+        Instantiate(themeBoxPrefabs[index], spawnPosition, Quaternion.identity);
+    }
+
     Vector2 GetSpawnPosition()
     {
         float xPosition = Random.Range(-screenWidth / 2, screenWidth / 2);
         return new Vector2(xPosition, spawnHeight);
+    }
+
+    void ScreenBounds()
+    {
+        float height = 2f * Camera.main.orthographicSize;
+        screenWidth = height * Camera.main.aspect;
+
+        spawnHeight = Camera.main.orthographicSize + 1f;
     }
 }
