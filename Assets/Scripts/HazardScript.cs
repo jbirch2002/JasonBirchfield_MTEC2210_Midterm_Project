@@ -10,18 +10,18 @@ public class HazardScript : MonoBehaviour
     private float fallingSpeed;
     private Rigidbody2D rb;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        fallingSpeed = Random.Range(minFallingSpeed, maxFallingSpeed);
-    }
-
     void Awake()
     {
         if (deathSound == null)
         {
             deathSound = GetComponent<AudioSource>();
         }
+    }
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        fallingSpeed = Random.Range(minFallingSpeed, maxFallingSpeed);
     }
 
     void FixedUpdate()

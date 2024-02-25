@@ -10,18 +10,18 @@ public class CollectableScript : MonoBehaviour
     private float fallingSpeed;
     private Rigidbody2D rb;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        fallingSpeed = Random.Range(minFallingSpeed, maxFallingSpeed);
-    }
-
     void Awake()
     {
         if (collectSound == null)
         {
             collectSound = GetComponent<AudioSource>();
         }
+    }
+    
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        fallingSpeed = Random.Range(minFallingSpeed, maxFallingSpeed);
     }
 
     void FixedUpdate()

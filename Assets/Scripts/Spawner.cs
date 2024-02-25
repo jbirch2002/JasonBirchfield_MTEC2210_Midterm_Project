@@ -17,15 +17,8 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         ScreenBounds();
-        StartCoroutine(StartSpawningAfterDelay(3f));
+        StartCoroutine(StartSpawn(3f));
     }
-
-    IEnumerator StartSpawningAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
-    }
-
     void Update()
     {
         if (spawnInterval > 0)
@@ -39,6 +32,13 @@ public class Spawner : MonoBehaviour
             }
         }
     }
+
+    IEnumerator StartSpawn(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
+    }
+
 
     void SpawnRandomObject()
     {
