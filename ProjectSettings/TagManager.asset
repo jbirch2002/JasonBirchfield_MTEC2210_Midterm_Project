@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Theme Box
+  - Collectable
+  - ThemeChange
+  - Hazard
   layers:
   - Default
   - TransparentFX
