@@ -39,7 +39,6 @@ public class Spawner : MonoBehaviour
         spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
     }
 
-
     void SpawnRandomObject()
     {
         float rand = Random.value;
@@ -47,6 +46,12 @@ public class Spawner : MonoBehaviour
         if (rand < 0.33f) SpawnCollectable();
         else if (rand < 0.66f) SpawnHazard();
         else SpawnThemeBox();
+    }
+
+    Vector2 GetSpawnPosition()
+    {
+        float xPosition = Random.Range(-screenWidth / 2, screenWidth / 2);
+        return new Vector2(xPosition, spawnHeight);
     }
 
     void SpawnCollectable()
@@ -74,12 +79,6 @@ public class Spawner : MonoBehaviour
         int index = Random.Range(0, themeBoxPrefabs.Length);
         Vector2 spawnPosition = GetSpawnPosition();
         Instantiate(themeBoxPrefabs[index], spawnPosition, Quaternion.identity);
-    }
-
-    Vector2 GetSpawnPosition()
-    {
-        float xPosition = Random.Range(-screenWidth / 2, screenWidth / 2);
-        return new Vector2(xPosition, spawnHeight);
     }
 
     void ScreenBounds()

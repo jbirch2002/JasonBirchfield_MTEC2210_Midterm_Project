@@ -29,5 +29,10 @@ public class ThemeChangeScript : MonoBehaviour
             Debug.Log("Theme Box collected...");
             Destroy(gameObject);
         }
+
+        if (other.CompareTag("Floor"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

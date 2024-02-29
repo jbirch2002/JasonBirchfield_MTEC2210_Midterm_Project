@@ -42,5 +42,10 @@ public class CollectableScript : MonoBehaviour
             }
             Destroy(gameObject, collectSound.clip.length);
         }
+
+        if(other.CompareTag("Floor"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

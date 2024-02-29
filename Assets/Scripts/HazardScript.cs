@@ -36,5 +36,10 @@ public class HazardScript : MonoBehaviour
             deathSound.Play();
             Destroy(gameObject, deathSound.clip.length);
         }
+
+        if (other.CompareTag("Floor"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
