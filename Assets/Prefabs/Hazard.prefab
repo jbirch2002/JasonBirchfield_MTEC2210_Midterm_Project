@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 666b2b0035195b1409a86a0dd2ca5804, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -151,7 +151,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.73, y: 1.795}
+    oldSize: {x: 3.12, y: 2.0514286}
     newSize: {x: 5.46, y: 3.59}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -170,7 +170,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 144fe5f25b868574a87e9decf8f9cdf5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 173360ef3a0513341b2d6357df405869, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -268,6 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8644708469787104eb0aeeafabed0586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathSound: {fileID: 6911764754983726835}
+  deathSound: {fileID: 8300000, guid: 4e28fef9f0e57674eb2aa8a6b901ae6c, type: 3}
   minFallingSpeed: -10
   maxFallingSpeed: -5

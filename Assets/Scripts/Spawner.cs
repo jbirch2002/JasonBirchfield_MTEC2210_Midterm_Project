@@ -48,12 +48,6 @@ public class Spawner : MonoBehaviour
         else SpawnThemeBox();
     }
 
-    Vector2 GetSpawnPosition()
-    {
-        float xPosition = Random.Range(-screenWidth / 2, screenWidth / 2);
-        return new Vector2(xPosition, spawnHeight);
-    }
-
     void SpawnCollectable()
     {
         if (collectablePrefabs.Length == 0) return;
@@ -87,5 +81,16 @@ public class Spawner : MonoBehaviour
         screenWidth = height * Camera.main.aspect;
 
         spawnHeight = Camera.main.orthographicSize + 1f;
+    }
+
+    Vector2 GetSpawnPosition()
+    {
+        float xPosition = Random.Range(-screenWidth / 2, screenWidth / 2);
+        return new Vector2(xPosition, spawnHeight);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
     }
 }

@@ -4,38 +4,42 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public Score score;
+    public AudioClip collectSound;
+    new AudioSource audio;
     public AudioSource introSound;
     public AudioSource backgroundMusic;
     public float speed = 5f;
-    private float movement;
-    private Rigidbody2D rb;
-    private Vector3 localScale;
+    float movement;
+    Rigidbody2D rb;
+    Vector3 localScale;
 
-    private void Start()
+    void Start()
     {
         introSound.Play();
         StartCoroutine(PlayBackgroundMusic(3f));
 
+        audio = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         localScale = transform.localScale;
     }
 
-    private void Update()
+    void Update()
     {
         ProcessInputs();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         PlayerMovement();
     }
 
-    private void PlayerMovement()
+    void PlayerMovement()
     {
         rb.velocity = new Vector2(movement * speed, rb.velocity.y);
     }
     
-    private void ProcessInputs()
+    void ProcessInputs()
     {
         movement = Input.GetAxisRaw("Horizontal");
 
@@ -72,13 +76,20 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Hazard"))
         {
             introSound.Play();
             backgroundMusic.Stop();
             Destroy(gameObject);
+        }
+
+        if(other.CompareTag("Collectable"))
+        {
+            score.ScoreIncrease();
+            audio.PlayOneShot(collectSound, .7f);
+            Destroy(other.gameObject);
         }
     }
 }

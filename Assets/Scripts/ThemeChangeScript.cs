@@ -7,8 +7,8 @@ public class ThemeChangeScript : MonoBehaviour
     // public AudioSource themeBoxCollectSound;
     public float minFallingSpeed = -10f;
     public float maxFallingSpeed = -5f;
-    private float fallingSpeed;
-    private Rigidbody2D rb;
+    float fallingSpeed;
+    Rigidbody2D rb;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class ThemeChangeScript : MonoBehaviour
         rb.velocity = new Vector2(0, fallingSpeed);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
