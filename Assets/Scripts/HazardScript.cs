@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class HazardScript : MonoBehaviour
 {
-    public AudioClip deathSound;
-    new AudioSource audio;
     public float minFallingSpeed = -10f; 
     public float maxFallingSpeed = -5f;
     float fallingSpeed;
@@ -13,7 +11,6 @@ public class HazardScript : MonoBehaviour
 
     void Start()
     {
-        audio = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         fallingSpeed = Random.Range(minFallingSpeed, maxFallingSpeed);
     }
@@ -25,12 +22,6 @@ public class HazardScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            audio.PlayOneShot(deathSound, .07f);
-            Destroy(gameObject);
-        }
-
         if (other.CompareTag("Floor")) Destroy(gameObject);
     }
 }

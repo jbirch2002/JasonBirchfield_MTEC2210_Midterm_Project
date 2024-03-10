@@ -6,6 +6,7 @@ public class PlayerScript : MonoBehaviour
 {
     public Score score;
     public AudioClip collectSound;
+    public AudioClip deathSound;
     new AudioSource audio;
     public AudioSource introSound;
     public AudioSource backgroundMusic;
@@ -62,10 +63,8 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator PlayBackgroundMusic(float delay)
     {
-        // Wait for the specified delay
         yield return new WaitForSeconds(delay);
 
-        // Play the background music if it's available
         if (backgroundMusic != null)
         {
             backgroundMusic.Play();
@@ -80,9 +79,15 @@ public class PlayerScript : MonoBehaviour
     {
         if (other.CompareTag("Hazard"))
         {
-            introSound.Play();
+            introSound.Stop();
             backgroundMusic.Stop();
-            Destroy(gameObject);
+            audio.PlayOneShot(deathSound, .7f);
+            
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            this.enabled = false;
+
+            StartCoroutine(DestroyAfterSound(deathSound.length));
         }
 
         if(other.CompareTag("Collectable"))
@@ -92,4 +97,10 @@ public class PlayerScript : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+
+    IEnumerator DestroyAfterSound(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }       
 }
